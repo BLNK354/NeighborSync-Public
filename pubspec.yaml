@@ -1,0 +1,60 @@
+name: neighborsync
+description: "NeighborSync — Management Platform for Homeowners Association Subdivisions"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Provides usePathUrlStrategy() so the web build uses real paths
+  # (/admin/billing) instead of Flutter's default hash URLs
+  # (/#/admin/billing). Needed for Supabase recovery links to resolve --
+  # see lib/core/url_strategy_web.dart. Ships with the SDK, no version.
+  flutter_web_plugins:
+    sdk: flutter
+  supabase_flutter: ^2.5.6
+  pinput: ^5.0.0          # MFA OTP input UI
+  go_router: ^14.2.0       # role-based routing
+  google_fonts: ^6.2.1     # Inter (Figma typography)
+  file_picker: ^8.1.2      # community logo upload (Branding/CMS screen)
+  flutter_svg: ^2.0.10+1   # renders the real TOTP QR code Supabase returns on mfa.enroll()
+  qr_flutter: ^4.1.0       # gate pass QR. The screen previously drew Icons.qr_code_2 --
+                           # a Material icon shaped like a QR code, encoding nothing and
+                           # identical on every pass, which is why scanning it did nothing.
+  mobile_scanner: ^5.2.3   # the OTHER half of the above: qr_flutter only DRAWS a code.
+                           # Reads the gate pass QR at the guardhouse. Works on web (needs
+                           # HTTPS -- Vercel is) and Android, which are the two deploy
+                           # targets; the Android build also needs CAMERA in the manifest.
+  url_launcher: ^6.3.0     # opens signed Storage download URLs from the Documents screen
+  http: ^1.2.0             # fetches a public Storage file's bytes so it opens in-app (core/stored_file.dart)
+  pdf: ^3.10.7             # builds the real Reports PDF export
+  printing: ^5.12.0        # triggers the browser save/print dialog for the generated PDF
+  web: ^1.1.0              # Blob/anchor download for the Backup screen's "local" destination
+  drift: ^2.20.0           # local SQLite database (officer offline mode)
+  drift_flutter: ^0.2.0    # sets up the drift connection for both desktop/mobile and web
+  connectivity_plus: ^6.0.5 # detects online/offline so the app knows when to read/write local vs Supabase
+  archive: ^4.0.9          # unzips an .xlsx roster (an xlsx IS a zip of XML parts) --
+  xml: ^6.6.1              # ...and this reads those parts. See lib/core/xlsx_reader.dart.
+                           # Both were ALREADY in the tree at these exact versions as
+                           # transitive deps, so this only promotes them to direct ones.
+                           # The `excel` package was the obvious alternative and was
+                           # rejected: excel 4.0.6 pins archive ^3.6.1, which would drag
+                           # `image` (below) back to an older archive and break upload
+                           # compression. Checked against pubspec.lock, not assumed.
+  image: ^4.2.0            # resizes + re-encodes uploads before they leave the device.
+                           # Pure Dart, so it works on web. dart:ui can resize but can
+                           # only encode PNG, which makes a compressed phone JPEG BIGGER
+                           # -- see lib/core/image_compress.dart.
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  drift_dev: ^2.20.0       # generates local_database.g.dart from local_database.dart -- must run locally, not available in this sandbox
+  build_runner: ^2.4.11
+
+flutter:
+  uses-material-design: true

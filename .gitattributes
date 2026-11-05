@@ -1,0 +1,19 @@
+# Normalize line endings so editing on Windows/OneDrive doesn't show every
+# file as "modified" (CRLF vs LF churn). Text files are stored as LF in git.
+* text=auto eol=lf
+
+# Explicitly treat common binary/asset types as binary (never normalized).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.jar binary
+*.keystore binary
+*.p12 binary
+*.exe binary

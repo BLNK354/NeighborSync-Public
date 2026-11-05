@@ -1,0 +1,39 @@
+# What NOT to upload to Vercel.
+#
+# Git deploys only ever contain tracked files, so this matters for the CLI
+# path (`vercel --prod` from the repo root). Without it the CLI uploads the
+# whole project -- 1.4 GB of it is `build/`, holding Android and desktop
+# intermediates that have nothing to do with the web app. That is what
+# aborted the upload on 2026-08-14.
+#
+# Everything the build genuinely needs must stay: lib/, web/, assets/,
+# pubspec.yaml, pubspec.lock and vercel-build.sh.
+
+# Build output -- vercel-build.sh regenerates build/web on the server.
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Platforms we do not deploy. Realistic targets are Web + Android, and
+# Android is not built here.
+android/
+ios/
+linux/
+macos/
+windows/
+
+# Not used by a web build.
+test/
+supabase/
+database/
+
+# Editor and VCS noise.
+.git/
+.github/
+.idea/
+.vscode/
+.claude/
+*.iml
+*.log
+.DS_Store

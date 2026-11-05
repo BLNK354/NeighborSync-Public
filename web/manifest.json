@@ -1,0 +1,35 @@
+{
+    "name": "NeighborSync",
+    "short_name": "NeighborSync",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#F3F6F4",
+    "theme_color": "#114D30",
+    "description": "Homeowners association management portal for residents, officers, and administrators — dues and billing, complaints, visitor passes, security incidents, documents, and community announcements.",
+    "orientation": "any",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

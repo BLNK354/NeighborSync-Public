@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Two-factor sign-in turned on</title>
+<!--[if mso]>
+<noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+<![endif]-->
+</head>
+<body style="margin:0; padding:0; width:100%; background-color:#F3F6F4;">
+
+<div style="display:none; max-height:0; overflow:hidden; mso-hide:all; font-size:1px; line-height:1px; color:#F3F6F4;">
+  A second sign-in step was added to your NeighborSync account.
+  &#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3F6F4;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="width:560px; max-width:560px; background-color:#ffffff; border-radius:12px; border:1px solid #E2E8E5;">
+
+        <tr>
+          <td align="left" style="background-color:#1A6B43; padding:26px 32px; border-radius:12px 12px 0 0; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:19px; font-weight:600; color:#ffffff; letter-spacing:0.2px;">
+            NeighborSync
+            <div style="font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12.5px; font-weight:400; color:#C7E2D4; padding-top:4px; letter-spacing:0;">Homeowners Association Portal</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:36px 40px 8px 40px;">
+            <h1 style="margin:0; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:22px; line-height:1.35; font-weight:700; color:#1C1F1D;">
+              Two-factor sign-in turned on
+            </h1>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:0 40px;">
+            <p style="margin:14px 0 0 0; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:1.65; color:#4A544E;">
+              The account <strong style="color:#1C1F1D;">{{ .Email }}</strong> now asks for
+              {{ if eq .FactorType "totp" }}an authenticator app{{ else if eq .FactorType "phone" }}a phone (SMS) code{{ else }}a {{ .FactorType }} check{{ end }} after the password each time someone signs in.
+              Nothing else changed.
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:26px 40px 0 40px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF8E8; border-radius:9px; border:1px solid #F0E2BE;">
+              <tr>
+                <td style="padding:16px 18px; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:1.65; color:#4A544E;">
+                  <strong style="color:#1C1F1D;">Was this not you?</strong>
+                  Someone who knows your password set this up. Change your password from Profile right away, or use Forgot password on the sign-in page, and tell the HOA office.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:24px 40px 34px 40px;">
+            <p style="margin:0; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:1.65; color:#6B7570;">
+              You can turn two-factor sign-in off or change it any time from
+              Profile &rarr; Manage Two-Factor Auth.
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:0 40px;">
+            <div style="height:1px; line-height:1px; font-size:0; background-color:#E2E8E5;">&nbsp;</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td align="center" style="padding:22px 40px 30px 40px;">
+            <p style="margin:0; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12.5px; line-height:1.7; color:#6B7570;">
+              {{ if .Data.community_name }}<strong style="color:#4A544E;">{{ .Data.community_name }}</strong><br>{{ end }}
+              Need help? Contact your HOA office.
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="width:560px; max-width:560px;">
+        <tr>
+          <td align="center" style="padding:18px 24px 0 24px;">
+            <p style="margin:0; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11.5px; line-height:1.6; color:#8A938E;">
+              Sent by NeighborSync on behalf of your homeowners association.<br>
+              This is an automated message &mdash; please do not reply to it.
+            </p>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

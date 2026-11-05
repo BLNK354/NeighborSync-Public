@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Homeowners association management portal for residents, officers, and administrators — dues and billing, complaints, visitor passes, security incidents, documents, and community announcements.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#114D30">
+  <meta name="apple-mobile-web-app-title" content="NeighborSync">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>NeighborSync</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!--
+    BOOT SPLASH
+    ===========
+    Flutter Web paints NOTHING until the engine has downloaded and rendered its
+    first frame. Before this, <body> held only the bootstrap script, so anyone
+    opening the app over mobile data got several seconds of blank white with no
+    indication it was working. On an installed PWA that reads as a crash.
+
+    Everything below is plain HTML and CSS with no JavaScript dependency, so it
+    paints on the browser's first pass rather than waiting on any download.
+
+    WHY THE BACKGROUND IS #F3F6F4 AND NOT THE BRAND GREEN.
+    On Android an installed PWA already shows a launch screen built from
+    manifest.json's `background_color` (#F3F6F4) and the app icon. Making this
+    splash dark green would give three states in a row -- light, green, then the
+    app's own light background -- i.e. two visible flashes. Matching
+    `background_color` makes the launch screen and this one continuous, so the
+    only thing that changes is the content appearing.
+
+    The logo is `icons/Icon-192.png`, DELIBERATELY the same file the manifest
+    and apple-touch-icon use. Replacing that one icon updates the home screen,
+    the browser tab, the Android launch screen and this splash together --
+    rather than leaving a second copy here to drift out of step.
+  -->
+  <style>
+    /* The splash paints over everything until Flutter's first frame. */
+    #ns-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: #F3F6F4;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      /* Fades out rather than vanishing: the cut from splash to first frame is
+         otherwise a hard jump, and the frame is not always laid out on the very
+         first paint. */
+      opacity: 1;
+      transition: opacity 220ms ease-out;
+    }
+    #ns-splash.ns-done { opacity: 0; pointer-events: none; }
+
+    #ns-splash img {
+      width: 88px;
+      height: 88px;
+      border-radius: 20px;
+      /* A square logo on a near-white field needs an edge or it floats. */
+      box-shadow: 0 6px 20px rgba(17, 77, 48, 0.18);
+    }
+
+    #ns-splash .ns-name {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #114D30;
+    }
+
+    /* Deliberately a thin ring rather than a progress bar: the engine download
+       reports no progress, so a bar would have to fake one. */
+    #ns-splash .ns-ring {
+      width: 22px;
+      height: 22px;
+      border: 2.5px solid rgba(26, 107, 67, 0.22);
+      border-top-color: #1A6B43;
+      border-radius: 50%;
+      animation: ns-spin 0.9s linear infinite;
+    }
+    @keyframes ns-spin { to { transform: rotate(360deg); } }
+
+    /* Hidden until the slow-boot timer fires. A spinner that never resolves is
+       the app's way of saying nothing at all -- the same failure the reset
+       screen had before it grew a bounded wait. */
+    #ns-splash .ns-slow {
+      max-width: 280px;
+      margin-top: 4px;
+      text-align: center;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #63746A;
+      opacity: 0;
+      transition: opacity 300ms ease-in;
+    }
+    #ns-splash .ns-slow.ns-show { opacity: 1; }
+
+    /* Respect the OS setting -- a full-screen spinner is exactly the kind of
+       motion this preference exists to suppress. */
+    @media (prefers-reduced-motion: reduce) {
+      #ns-splash .ns-ring { animation-duration: 2.4s; }
+      #ns-splash { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="ns-splash">
+    <img src="icons/Icon-192.png" alt="">
+    <div class="ns-name">NeighborSync</div>
+    <div class="ns-ring"></div>
+    <div class="ns-slow" id="ns-slow">
+      Still loading. If this doesn't finish, check your connection and refresh.
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var splash = document.getElementById('ns-splash');
+      if (!splash) return;
+
+      var removed = false;
+      function dismiss() {
+        if (removed) return;
+        removed = true;
+        splash.classList.add('ns-done');
+        // Removed from the DOM after the fade, not merely hidden: a
+        // position:fixed overlay left in place would keep swallowing taps
+        // across the whole viewport even at zero opacity.
+        setTimeout(function () { splash.remove(); }, 260);
+      }
+
+      // Flutter dispatches this on window once it has painted. This is the
+      // documented hook and is why the splash needs no polling.
+      window.addEventListener('flutter-first-frame', dismiss);
+
+      // Say something after 8 seconds rather than spinning silently.
+      setTimeout(function () {
+        var slow = document.getElementById('ns-slow');
+        if (slow && !removed) slow.classList.add('ns-show');
+      }, 8000);
+
+      // Backstop. If 'flutter-first-frame' never arrives -- an engine that
+      // failed to boot, or a future Flutter that renames the event -- the
+      // splash must not sit on top of a working app forever. Removing it early
+      // shows a blank page, which is no worse than the blank page this
+      // replaced; leaving it means the app is unusable.
+      setTimeout(dismiss, 30000);
+    })();
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
